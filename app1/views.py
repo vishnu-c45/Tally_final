@@ -10305,13 +10305,16 @@ def Edit_Voucher_Types(request,pk):
     return render(request,'vouchertypeeditpage.html')
 
 
-# Alter method
+#.................Inventory Alter method..............
+
+#................stock group..................
 
 def stock_group_alter_list(request):
     data=CreateStockGrp.objects.all()
     return render(request,'alter_stockgroup_list.html',{'data':data})
 
-def stock_group_2(request):
+
+def load_stock_group_2(request):
     if 't_id' in request.session:
         if request.session.has_key('t_id'):
             t_id = request.session['t_id']
@@ -10319,14 +10322,57 @@ def stock_group_2(request):
             return redirect('/')
         tally = Companies.objects.filter(id=t_id)
         und=stockgroupcreation.objects.all()
+	    # com=Companies.objects.get(id=pk) 
+        return render(request,'alter_stockgroup2.html',{'und':und,'tally':tally})
+    return redirect('/')
+
+def stock_group_2(request):
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+            und=CreateStockGrp.objects.filter(comp=t_id)
+        else:
+            return redirect('/')
         if request.method=='POST':
+            
+            # company=Companies.objects.get(id=request.companycreate)
+            company=Companies.objects.get(id=t_id)
             name=request.POST['name']
             alias=request.POST['alias']
             under_name=request.POST['under_name']
             quantities=request.POST['quantities']
-            stockgrp=stockgroupcreation(name=name,alias=alias,under=under_name,quantities=quantities)
+            stockgrp=CreateStockGrp(name=name,alias=alias,under_name=under_name,quantities=quantities,comp=company)
             stockgrp.save()
             return redirect('stock_group_alter_list')
-        return render(request,'alter_stockgroup2.html',{'und':und,'tally':tally})
+        return render(request,'alter_stockgroup2.html',{'und':und,})
     return redirect('/')
+
+
+def alter_stockgroup(request,pk):
+    std=CreateStockGrp.objects.get(id=pk)
+    if request.method =='POST':
+         std.name=request.POST['name']
+         std.alias=request.POST['alias']
+         std.under_name=request.POST['under_name']
+         std.quantities=request.POST['quantities']
+         std.save()   
+         return redirect('stock_group_alter_list') 
+    return render(request,'alter_stockgrp_edit.html',{'std':std})
+
+#..................Alter stock category...................
+
+def stock_category_alter_list(request):
+    data=stockcatagorycreation.objects.all()
+    return render(request,'alter_stock_category_list.html',{'data':data})
+
+def alter_stockcatagory(request,pk):
+    std=stockcatagorycreation.objects.get(id=pk)
+    cagy=stockcatagorycreation.objects.all()
+    if request.method =='POST':
+         std.name=request.POST['name']
+         std.alias=request.POST['alias']
+         std.under=request.POST['under_name']
+         std.save()   
+         return redirect('stock_category_alter_list') 
+    return render(request,'alter_stock_cate_edit.html',{'std':std,'cagy':cagy})
 

@@ -313,8 +313,8 @@
                                     <li>
             
                                         <a href="load_stock_group">Stock Group</a>
-                                        <a href="load_stock_catagory">Stock Category</a>
-                                        <a href="load_stock_item_creation">Stock Item</a>
+                                        <a href="{% url 'load_stock_catagory' %}">Stock Category</a>
+                                        <a href="{% url 'load_stock_item_creation' %}">Stock Item</a>
                                         <a href="load_unit_creation">Unit</a>
                                         <a href="godown_creation">Godown</a>
                                         <a href="load_company_price">Price Levels</a>
@@ -534,7 +534,7 @@
                                 <ul>
                                     <li><a href="{% url 'stock_group_alter_list' %}"><i class=" bx bx-caret-right"></i>Stock Groups</a></li>
                                     <li><a href="ledger"><i class=" bx bx-caret-right"></i>Stock Items</a></li>
-                                    <li><a href="#"><i class=" bx bx-caret-right"></i>Stock Categories</a></li>
+                                    <li><a href="{% url 'stock_category_alter_list' %}"><i class=" bx bx-caret-right"></i>Stock Categories</a></li>
                                     <li><a href="#"><i class=" bx bx-caret-right"></i>Units</a></li>
                                     <li><a href="#"><i class=" bx bx-caret-right"></i>Godowns</a></li>
                                    

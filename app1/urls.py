@@ -652,6 +652,13 @@ urlpatterns = [
                 path('outstanding',views.outstanding,name='outstanding'),
        
        # .................alter inventory section........................
+                            #....stock group........
                 path('stock_group_alter_list',views.stock_group_alter_list,name='stock_group_alter_list'),                  
-                path('stock_group_2',views.stock_group_2,name='stock_group_2')
+                path('stock_group_2',views.stock_group_2,name='stock_group_2'),
+                path('load_stock_group_2',views.load_stock_group_2,name='load_stock_group_2'),
+                path('alter_stockgroup/<int:pk>',views.alter_stockgroup,name='alter_stockgroup'),
+                
+                 #..............stock category.................
+                path('stock_category_alter_list',views.stock_category_alter_list,name='stock_category_alter_list'),
+                path('alter_stockcatagory/<int:pk>',views.alter_stockcatagory,name='alter_stockcatagory'),
 ]
