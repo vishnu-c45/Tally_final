@@ -661,4 +661,10 @@ urlpatterns = [
                  #..............stock category.................
                 path('stock_category_alter_list',views.stock_category_alter_list,name='stock_category_alter_list'),
                 path('alter_stockcatagory/<int:pk>',views.alter_stockcatagory,name='alter_stockcatagory'),
+                
+                #...............stock unit.....................
+                path('stock_unit',views.stock_unit,name='stock_unit'),
+                path('alter_unit/<int:pk>',views.alter_unit,name='alter_unit'),
+                 path('alter_unit_2/<int:pk>',views.alter_unit_2,name='alter_unit_2'),
+                
 ]

@@ -10376,3 +10376,38 @@ def alter_stockcatagory(request,pk):
          return redirect('stock_category_alter_list') 
     return render(request,'alter_stock_cate_edit.html',{'std':std,'cagy':cagy})
 
+#........................stock unit..................................
+
+def stock_unit(request):
+    data=unit_simple.objects.all()
+    data2=unit_compound.objects.all()
+    return render(request,'alter_unit_list.html',{'data':data,'data2':data2})
+
+
+def alter_unit(request,pk):
+    std=unit_simple.objects.get(id=pk)
+    if request.method =='POST':
+         std.type=request.POST['type']
+         std.symbol=request.POST['symb']
+         std.formal_name=request.POST['fname']
+         std.uqc=request.POST['uqc']
+         std.decimal=request.POST['decimal']
+         std.save()
+         return redirect('stock_unit')
+    return render(request,'alter_stockunit_edit.html',{'std':std})    
+
+
+def alter_unit_2(request,pk):
+    std=unit_compound.objects.get(id=pk)
+    c=unit_simple.objects.all()
+    if request.method =='POST':
+         std.typ=request.POST['compound']
+         std.f_unit=request.POST['f_unit']
+         std.conversion=request.POST['conversion']
+         std.s_unit=request.POST['s_unit']
+         std.save()
+         return redirect('stock_unit')
+    return render(request,'alter_stockunit_edit_2.html',{'std':std,'c':c})    
+        
+
+
