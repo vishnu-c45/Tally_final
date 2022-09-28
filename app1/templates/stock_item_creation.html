@@ -122,7 +122,7 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Maintain in Batches</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="bt" class="form-control" onchange="showbats();">
+                                <select id="bt" class="form-control" name="batches" onchange="showbats();">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -131,7 +131,7 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Track Date of manufacturing</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="btt" class="form-control" onchange="showbats1();">
+                                <select id="btt" class="form-control" name="cost_tracking" onchange="showbats1();">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -140,7 +140,7 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Use Expiry Dates</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="bat" class="form-control" onchange="showbats2();">
+                                <select id="bat" class="form-control" name="" onchange="showbats2();">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -163,7 +163,7 @@
                     <div class="row container-fluid  p-2" id="l">
                         <div class="col-sm-6 m-0 p-0"> <label for="l">GST Applicable</label></div>
                         <div class="col-sm-6 m-0 p-0">
-                            <select name="gst_applicable" id="gst" class="form-control" onchange="showgst()">
+                            <select name="gst_applicable" id="gst" name="gst_applicable" class="form-control" onchange="showgst()">
                                 <option value="Not Applicable">Not Applicable</option>
                                 <option value="Applicable" selected>Applicable</option>
                                 <option value="Undefined">Undefined</option>   
@@ -173,7 +173,7 @@
                     <div class="row container-fluid p-2" id="setalt">
                         <div class="col-sm-6 m-0 p-0"> <label for="l">Set/Alter GST details</label></div>
                         <div class="col-sm-6 m-0 p-0">
-                            <select name="set_alter" id="stock" class="form-control" onchange="showgststock()">
+                            <select name="set_alter" id="stock"  class="form-control" onchange="showgststock()">
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
                             </select>        
@@ -190,7 +190,7 @@
                     </div>
                     <div class="row container-fluid p-2">
                         <div class="col-sm-6 m-0 p-0"><label for="l">Rate of duty(eg 5)</label></div>
-                        <div class="col-sm-6 m-0 p-0"><input type="number" id="l" class="form-control" name="rate_of_duty"></div>
+                        <div class="col-sm-6 m-0 p-0"><input type="number" id="l" value="1" class="form-control" name="rate_of_duty"></div>
                     </div>
                 </div>
             </div>
@@ -221,7 +221,7 @@
                     <div class="row container-fluid p-2 m-0">
                         <div class="col-sm-2 m-0 p-0"><label for="">Value</label></div>
                         <div class="col-sm-3 m-0 p-0"> 
-                            <input type="text" class="form-control" id="value" placeholder="" name="value"> </div>
+                            <input type="text" class="form-control" id="value"  placeholder="" name="value"> </div>
                         <div class="col-sm-7 m-0 p-0"></div>
                     </div>
                 </div>

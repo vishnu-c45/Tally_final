@@ -1,4 +1,5 @@
 import datetime
+from pickle import FALSE
 import random
 import re
 from tally.settings import EMAIL_HOST_USER
@@ -5261,12 +5262,13 @@ def godown(request):
         else:
             return redirect('/')
         tally = Companies.objects.filter(id=t_id)
+        comp=Companies.objects.get(id=t_id)
         gd=CreateGodown.objects.all()
         if request.method=='POST':
             name=request.POST['name']
             alias=request.POST['alias']
             under_name=request.POST['under_name']
-            gdcrt=CreateGodown(name=name,alias=alias,under_name=under_name)
+            gdcrt=CreateGodown(name=name,alias=alias,under_name=under_name,comp=comp)
             gdcrt.save()
             return redirect('godown')
         return render(request,'godown.html',{'gd':gd,'tally':tally})
@@ -10408,6 +10410,36 @@ def alter_unit_2(request,pk):
          std.save()
          return redirect('stock_unit')
     return render(request,'alter_stockunit_edit_2.html',{'std':std,'c':c})    
+
+#....................God down.................................
+
+def alter_godown(request):
+    data=CreateGodown.objects.all()
+    return render(request,'alter_goddown_list.html',{'data':data})
+
+def alter_godown_edit(request,pk):
+    std=CreateGodown.objects.get(id=pk)
+    if request.method=='POST':
+        std.name=request.POST['name']
+        std.alias=request.POST['alias']
+        std.under_name=request.POST['under_name']
+        std.save()
+        return redirect('alter_godown')
+    return render(request,'alter_godown_edit.html',{'std':std})
+
+#......................price level.............................
+def alter_pricelevel(request):
+    data=Price_level.objects.all()
+    return render(request,'alter_pricelevel_list.html',{'data':data})
         
+        
+def alter_pricelevel_edit(request,pk):
+    std=Price_level.objects.get(id=pk)
+    pr=Price_level.objects.all()
+    if request.method=='POST':
+        std.number=request.POST['number']
+        std.save()
+        return redirect('alter_pricelevel')
+    return render(request,'alter_pricelevel_edit.html',{'std':std,'pr':pr})        
 
 
