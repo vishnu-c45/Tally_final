@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from re import T
 
@@ -935,6 +936,7 @@ class stock_itemcreation(models.Model):
     units=models.CharField(max_length=100,null=True)
     batches=models.CharField(max_length=10,null=True)
     cost_tracking=models.CharField(max_length=10,null=True)
+    expiry=models.CharField(max_length=100,null=True)
     gst_applicable=models.CharField(max_length=100,null=True)
     typ_sply=models.CharField(max_length=100)
     set_alter=models.CharField(max_length=100)
@@ -944,6 +946,8 @@ class stock_itemcreation(models.Model):
     per=models.CharField(max_length=100,null=True)
     value=models.CharField(max_length=100,null=True)
     
+    
+
 class gst_stockitem(models.Model):
     calc_typ=models.CharField(max_length=100)
     taxability=models.CharField(max_length=100)

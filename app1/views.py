@@ -5146,6 +5146,7 @@ def stock_items_creation(request):
             set_alter=request.POST['set_alter']
             typ_sply=request.POST['typ_sply']
             rate_of_duty=request.POST['rate_of_duty']
+            # godown=request.POST['godown']
             quantity=request.POST['quantity']
             rate=request.POST['rate']
             per=request.POST['per']
@@ -5154,7 +5155,7 @@ def stock_items_creation(request):
             crt=stock_itemcreation(name=nm,alias=alias,under=under,units=units,batches=batches,cost_tracking=cost_tracking,typ_sply=typ_sply,
             gst_applicable=gst_applicable,set_alter=set_alter,rate_of_duty=rate_of_duty,quantity=quantity,rate=rate,per=per,value=value)
             crt.save()
-            return redirect('stock_items')
+            return redirect('load_stock_item_creation')
         return render(request,'stock_item_creation.html',{'tally':tally})
     return redirect('/')
 
@@ -10440,6 +10441,18 @@ def alter_pricelevel_edit(request,pk):
         std.number=request.POST['number']
         std.save()
         return redirect('alter_pricelevel')
-    return render(request,'alter_pricelevel_edit.html',{'std':std,'pr':pr})        
+    return render(request,'alter_pricelevel_edit.html',{'std':std,'pr':pr})     
+
+
+def alter_stockitem(request):
+    data=stock_itemcreation.objects.all()
+    return render(request,'alter_stockitem_list.html',{'data':data})  
+
+
+def alter_stockitem_edit(request,pk):
+    std=stock_itemcreation.objects.get(id=pk)
+    u=unit_simple.objects.all()
+    gd=CreateGodown.objects.all()
+    return render(request,'alter_stockitem_edit.html',{'std':std,'u':u,'gd':gd}) 
 
 

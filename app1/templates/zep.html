@@ -7,9 +7,6 @@
             align-items: center;
             justify-content: center;   
         }
-        .hide{
-            display: none;
-        }
         .close {
             position: absolute;
             top: 3px;
@@ -28,17 +25,6 @@
             border: 1px solid #f1f1f1;
             z-index: 9;
             width: 300px;
-            height: 200px;
-        }
-
-        .form-popup2 {
-            display: none;
-            position: fixed;
-            top: 250px;
-            right: 330px;
-            border: 1px solid #f1f1f1;
-            z-index: 9;
-            width: 900px;
             height: 200px;
         }
         .content a:hover {
@@ -136,7 +122,7 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Maintain in Batches</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="bt" class="form-control" name="batches">
+                                <select id="bt" class="form-control" name="batches" onchange="showbats();">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -145,7 +131,7 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Track Date of manufacturing</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="btt" class="form-control" name="cost_tracking" >
+                                <select id="btt" class="form-control" name="cost_tracking" onchange="showbats1();">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -154,7 +140,7 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Use Expiry Dates</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="bat" class="form-control" name="expiry_date" >
+                                <select id="bat" class="form-control" name="" onchange="showbats2();">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -215,7 +201,7 @@
                     <div class="row container-fluid  p-2 m-0">
                         <div class="col-sm-2 m-0 p-0"><label for="">Quantity</label></div>
                         <div class="col-sm-3 m-0 p-0"><input type="text" class="form-control"  placeholder="" name="quantity"
-                            id="quantity" onclick=popup()>
+                            id="quantity" onblur="passquantity()">
                         </div>
                         <div class="col-sm-7 m-0 p-0"></div>
                     </div>
@@ -296,144 +282,7 @@
         </form>    
     </div>
 
-
-
-    <div class="form-popup ScrollStyle" id="underForm2" style="background-color: #213b52" >
-        <form action="" class="form-container1" >
-            <h6 style="background-color:rgb(17, 169, 240) ;color:white text">List of Godowns</h6>
-            <a href="{% url 'godown_alt' %}" style="cursor:pointer" class="btn bt btns_prnt" role="button">Create</a>  
-            <hr>
-            <div>
-                <table>
-                    <tr>
-                        <option onclick="setPrimary2()" class="btns_prnt">&nbsp;&nbsp;Primary</option>
-                        <option onclick="setmain2()" class="btns_prnt">&nbsp;&nbsp;Main Location</option>
-                        
-                        {% for l in gd %}
-                            <option onclick="setvalue2('{{l.name}}','{{l.id}}')" class="btns_prnt">&nbsp;&nbsp;{{l.name}}</option>
-                        {% endfor %}
-                    </tr>
-                </table>
-            </div>
-            <input type="text" name="underhidden" hidden value="{{l.id}}">
-        </form>
-        <button type="button" class="btn cancel close" onclick="closeForm1()">X</button>
-    </div>
-
-
-
-
-
-
-    <div class="form-popup2 m-3" id="pop1">
-        <div class="row bg-info text-light p-2 m-0">
-            <div class="col-md-6"><b>Stock Item Allocation</b></div>
-            <div class="col-md-6">
-                {% for i in tally %}
-                {{i.name}}
-            {% endfor %}
-            </div>
-        </div>
-        <div class="p-3" style="background-color:rgb(5, 1, 1);">
-            <center>
-                <!-- <div class="row container-fluid  p-2 m-0">
-                    <div class="col-sm-5 m-0 p-0"></div>
-                    <div class="col-sm-1 m-0 p-0"><label for="a">Allocation of : </label></div>
-                    <div class="col-sm-1 m-0 p-0"><input type="text" class="inp text-center" id="dt" name="stockname" style="width: 60px;"></div>
-                    <div class="col-sm-1 m-0 p-0"></div>
-                </div>
-                <div class="row container-fluid  p-2 m-0">
-                    <div class="col-sm-5 m-0 p-0"></div>
-                    <div class="col-sm-1 m-0 p-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="a">For</label></div>
-                    <div class="col-sm-1 m-0 p-0"><input type="text" class="inp text-center" id="ft" name="stockname" style="width: 60px;"></div>
-                    <div class="col-sm-1 m-0 p-0"></div>
-                </div> -->
-            </center>
-            <div class="table-responsive-sm" style="background-color:rgba(0,0,0,0.4);">
-                <Table class="w-100 table text-center" border="1">
-                    <tr>
-                        <!-- <th>Sl.no</th> -->
-                        <th>Godown</th>
-                        <th id="branch" class="hide">Branch</th>
-                        <th id="track" class="hide">Track</th>
-                        <th id="expiry" class="hide">Expiry</th>
-                        <th>Quantity</th>
-                        <th>Rate</th>
-                        <th>Per</th>
-                        <th>Amount</th>
-                        <th>Accept</th>
-        
-                    </tr>
-                    
-                    <tr>
-                      <td> 
-                        <input type="text" id="under2"  class="form-control" onclick="showform2();">
-                        </td>
-                      <td id="branch1" class="hide"> <input type="text" class="w-100 form-control"></td>
-                      <td id="track1" class="hide"> <input type="text" class="w-100 form-control"></td>
-                      <td id="expiry1" class="hide"> <input type="text"  class="w-100 form-control "></td>
-                      <td><input type="text" class="w-100 form-control" id="quantity1" onblur="passquantity()"> </td>
-                      <td> <input type="text" class="w-100 form-control" id="rate1" onblur="passrate()"></td>
-                      <td><input type="text" class="w-100 form-control" id="per" onblur="passper()"> </td>
-                      <td> <input type="text" class="w-100 form-control" id="value1" onblur="passvalue()"></td>
-                      
-                      <td><a href="#"><button onclick="closeForm()" class="btn btn-info">Accept</button></a></td> 
-            
-                    </tr>
-                    
-                    
-                </Table>
-            </div>
-            
-        </div>
-     
-   
-    </div> 
-    
-
-
-
     <script>
-
-        const popup=()=>{
-            document.getElementById('pop1').style.display="block";
-
-           let a=document.getElementById('btt').value;
-           let b=document.getElementById('bat').value;
-           let c=document.getElementById('bt').value;
-           console.log(c);
-           console.log(b);
-           console.log(a);
-
-           if (a == "Yes"){
-            document.getElementById("track").classList.remove("hide");
-            document.getElementById("track1").classList.remove("hide");
-           }
-           else{
-            document.getElementById("track").classList.add("hide");
-            document.getElementById("track1").classList.add("hide");
-
-           };
-
-           if (b == "Yes"){
-            document.getElementById("expiry").classList.remove("hide");
-            document.getElementById("expiry1").classList.remove("hide");
-
-           }
-           else{
-            document.getElementById("expiry").classList.add("hide");
-            document.getElementById("expiry1").classList.add("hide");
-
-           }
-
-           if (c == "Yes"){
-            document.getElementById("branch").classList.remove("hide");
-            document.getElementById("branch1").classList.remove("hide");
-           }
-           
-
-            
-        }
 
         function setPrimary(){
             document.getElementById('under').value= 'Primary';
@@ -455,44 +304,11 @@
             document.getElementsByName('underhidden1').value= unitsId;
             document.getElementById('additional').style.display = "flex";
         }
-
-        // godown popup
-
-        function setmain2(){
-            document.getElementById('under2').value='Main Location';
-
-        }
-
-        function setPrimary2(){
-            document.getElementById('under2').value='primary';
-        }
-
-        function setvalue2(godown,godownId){
-            document.getElementById('under2').value=godown;
-          
-        }
-
         function closeForm() {
             document.getElementById("underForm").style.display = "none";
-            document.getElementById('pop1').style.display="none";
-
-       
-
-            let quantity_value=document.getElementById('quantity1').value;
-            let rate_value=document.getElementById('rate1').value;
-            let per_value=document.getElementById('per').value;
-            let total_value=document.getElementById('value1').value;
-
-            document.getElementById('quantity').value=quantity_value;
-            document.getElementById('rate').value=rate_value;
-            document.getElementById('per1').value=per_value;
-            document.getElementById('value').value=total_value;
         }
         function showform(){
             document.getElementById('underForm').style.display= "block";
-        }
-        function showform2(){
-            document.getElementById('underForm2').style.display= "block";
         }
         function setvalue(under,underId){
             document.getElementById('under').value= under;
@@ -501,11 +317,9 @@
         }
         function closeForm1() {
             document.getElementById("underForm1").style.display = "none";
-            document.getElementById("underForm2").style.display = "none";
         }
         function showform1(){
             document.getElementById('underForm1').style.display= "block";
-            
         }
     </script>
 
@@ -578,10 +392,10 @@
             document.getElementById("list-units").style.visibility = "hidden";
         }
 
-        $('#quantity1, #rate1').on('input',function(){
-            var quantity = parseFloat($('#quantity1').val()) || 0;
-            var rate = parseFloat($('#rate1').val()) || 0;
-            $('#value1').val(quantity * rate);    
+        $('#quantity, #rate').on('input',function(){
+            var quantity = parseFloat($('#quantity').val()) || 0;
+            var rate = parseFloat($('#rate').val()) || 0;
+            $('#va').val(quantity * rate);    
         });
 
         function showgst(){
@@ -655,9 +469,6 @@
                 window.location.href="{% url 'stock_accuracy1' %}"
             }
         }
-
-
-    
     </script>
         
 {% endblock %}

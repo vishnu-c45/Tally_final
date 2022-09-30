@@ -674,6 +674,10 @@ urlpatterns = [
                 #.....................pricelevel....................................
                 path('alter_pricelevel',views.alter_pricelevel,name='alter_pricelevel'),
                 path('alter_pricelevel_edit/<int:pk>',views.alter_pricelevel_edit,name='alter_pricelevel_edit'),
+                
+                #.....................stock item.....................................
+                path('alter_stockitem',views. alter_stockitem,name='alter_stockitem'),
+                path('alter_stockitem_edit/<int:pk>',views.alter_stockitem_edit,name='alter_stockitem_edit'),
                  
                  
                 
