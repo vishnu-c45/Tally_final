@@ -12,6 +12,7 @@
             top: 3px;
             right: 8px;
             font-size: 17px;
+            transform: rotate(0deg);
             color: rgb(255, 255, 255);
             cursor: pointer;
             text-decoration: none;
@@ -39,9 +40,6 @@
             height: 600px;
             padding: 2px; 
         }
-        /* body{
-            overflow: hidden;
-        } */
         .btns_prnt{
             color: #fff;
             width: 100%;
@@ -63,26 +61,27 @@
             <div class="col-sm-3 m-0 p-0"></div>  
             <div class="col-sm-6 m-0 p-0">
                 <div class="row bg-info text-light p-2 m-0">
-                    <div class="col-md-6"><b>Godown Creation</b></div>
+                    <div class="col-md-6"><b>Stock Group Creation</b></div>
                     <div class="col-md-6">
                         {% for i in tally %}
                         {{i.name}}
                     {% endfor %}
                     </div>
                 </div>
-                <form class="p-3" style="background-color:rgba(0,0,0,.4);" method="post" action="{% url 'alter_godown_edit' std.id %}" autocomplete="off">
+                
+                <form class="p-3" style="background-color:rgba(0,0,0,.4);" method="post" action="{% url 'chart_stockgroup' std.id %}" autocomplete="off">
                     {% csrf_token %}
                     <div class="p-3">
                         <div class="row container-fluid  p-2 m-0">
                             <div class="col-sm-2 m-0 p-0"></div>
                             <div class="col-sm-3 m-0 p-0"> <label for="a">Name</label></div>
-                            <div class="col-sm-5 m-0 p-0"><input type="text" class="form-control" value="{{std.name}}" name="name" required></div>
+                            <div class="col-sm-5 m-0 p-0"><input type="text" value="{{std.name}}" class="form-control" name="name" required></div>
                             
                         </div>
                         <div class="row container-fluid  p-2 m-0">
                             <div class="col-sm-2 m-0 p-0"></div>
                             <div class="col-sm-3 m-0 p-0"> <label for="b">Alias</label></div>
-                            <div class="col-sm-5 m-0 p-0"><input type="text"  value="{{std.alias}}" class="form-control" name="alias"></div> 
+                            <div class="col-sm-5 m-0 p-0"><input type="text" value="{{std.alias}}" class="form-control" name="alias"></div> 
                         </div>
                         <div class="row container-fluid  p-2 m-0">
                             <div class="col-sm-2 m-0 p-0"></div>
@@ -91,6 +90,16 @@
                                 <input type="text" id="under" value="{{std.under_name}}" name="under_name" class="form-control" onclick="showform();">
                             </div>
                         </div>
+                        <div class="row container-fluid  p-2 m-0">
+                          <div class="col-sm-2 m-0 p-0"></div>
+                          <div class="col-sm-3 m-0 p-0"> <label>Should quantities of items be added</label></div>
+                          <div class="col-sm-5 m-0 p-0">
+                            <select name="quantities" id="" class="form-control">
+                              <option value="No">No</option>
+                              <option value="Yes">Yes</option>
+                            </select>
+                          </div> 
+                      </div>
                     <div class="enter w-100 py-4"><button class="btn btn-info w-15">CREATE</button></div>  
                 </form>
             </div>
@@ -99,16 +108,15 @@
 
     <div class="form-popup" id="underForm" style="background-color: #213b52" >
         <form action="" class="form-container1" >
-            <h6 style="background-color:rgb(17, 169, 240) ;color:white text">List of Godowns</h6>
-            <a href="{% url 'godown_alt' %}" style="cursor:pointer" class="btn bt btns_prnt" role="button">Create</a>  
+            <h6 style="background-color:rgb(17, 169, 240) ;color:white text">List of Groups</h6>
+            <a href="{% url 'stockgroup_alt' %}" style="cursor:pointer" class="btn bt btns_prnt" role="button">Create</a>  
             <hr>
             <div>
                 <table>
                     <tr>
                         <option onclick="setPrimary()" class="btns_prnt">&nbsp;&nbsp;Primary</option>
-                        <option onclick="setmain()" class="btns_prnt">&nbsp;&nbsp;Main Location</option>
-                        
-                        {% for l in data %}
+                  
+                        {% for l in und %}
                             <option onclick="setvalue('{{l.name}}','{{l.id}}')" class="btns_prnt">&nbsp;&nbsp;{{l.name}}</option>
                         {% endfor %}
                     </tr>
@@ -116,7 +124,7 @@
             </div>
             <input type="text" name="underhidden" hidden value="{{l.id}}">
         </form>
-        <button type="button" class="btn cancel close" onclick="closeForm()">X</button>
+        <button type="button" class="btn cancel close" onclick="closeForm()">x</button>
     </div>
 
     <script>
@@ -128,10 +136,6 @@
         }
         function setPrimary(){
             document.getElementById('under').value= 'Primary';
-            document.getElementById('underForm').style.visibility= "block";
-        }
-        function setmain(){
-            document.getElementById('under').value= 'Main Location';
             document.getElementById('underForm').style.visibility= "block";
         }
         function setvalue(under,underId){

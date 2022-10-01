@@ -10324,7 +10324,7 @@ def load_stock_group_2(request):
         else:
             return redirect('/')
         tally = Companies.objects.filter(id=t_id)
-        und=stockgroupcreation.objects.all()
+        und=CreateStockGrp.objects.all()
 	    # com=Companies.objects.get(id=pk) 
         return render(request,'alter_stockgroup2.html',{'und':und,'tally':tally})
     return redirect('/')
@@ -10352,7 +10352,14 @@ def stock_group_2(request):
 
 
 def alter_stockgroup(request,pk):
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+            und=CreateStockGrp.objects.filter(comp=t_id)
+        else:
+            return redirect('/')
     std=CreateStockGrp.objects.get(id=pk)
+    und=CreateStockGrp.objects.all()
     if request.method =='POST':
          std.name=request.POST['name']
          std.alias=request.POST['alias']
@@ -10360,7 +10367,7 @@ def alter_stockgroup(request,pk):
          std.quantities=request.POST['quantities']
          std.save()   
          return redirect('stock_group_alter_list') 
-    return render(request,'alter_stockgrp_edit.html',{'std':std})
+    return render(request,'alter_stockgrp_edit.html',{'std':std,'und':und})
 
 #..................Alter stock category...................
 
@@ -10420,13 +10427,14 @@ def alter_godown(request):
 
 def alter_godown_edit(request,pk):
     std=CreateGodown.objects.get(id=pk)
+    data=CreateGodown.objects.all()
     if request.method=='POST':
         std.name=request.POST['name']
         std.alias=request.POST['alias']
         std.under_name=request.POST['under_name']
         std.save()
         return redirect('alter_godown')
-    return render(request,'alter_godown_edit.html',{'std':std})
+    return render(request,'alter_godown_edit.html',{'std':std,'data':data})
 
 #......................price level.............................
 def alter_pricelevel(request):
@@ -10452,7 +10460,71 @@ def alter_stockitem(request):
 def alter_stockitem_edit(request,pk):
     std=stock_itemcreation.objects.get(id=pk)
     u=unit_simple.objects.all()
+    std2=CreateGodown.objects.get(id=pk)
     gd=CreateGodown.objects.all()
-    return render(request,'alter_stockitem_edit.html',{'std':std,'u':u,'gd':gd}) 
+    
+    if request.method=='POST':
+        std.name=request.POST['name']
+        std.alias=request.POST['alias']
+        std.batches=request.POST['batches']
+        std.cost_tracking=request.POST['cost_tracking']
+        std.gst_applicable=request.POST['gst_applicable']
+        std.typ_sply=request.POST['typ_sply']
+        std.set_alter=request.POST['set_alter']
+        std.rate_of_duty=request.POST['rate_of_duty']
+        std.quantity=request.POST['quantity']
+        std.rate=request.POST['rate']
+        std.per=request.POST['rate']
+        std.value=request.POST['value'] 
+        std.save()
+        return redirect('alter_stockitem')
+    return render(request,'alter_stockitem_edit.html',{'std':std,'u':u,'gd':gd,'std2':std2}) 
 
+#.......................CHART OF ACCOUNTS.............................................
+
+#..................STOCK GROUP.................
+
+
+def stock_group_chart_list(request):
+    data=CreateStockGrp.objects.all()
+    return render(request,'chart_stockgroup_list.html',{'data':data})
+
+
+
+def chart_stockgroup(request,pk):
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+            und=CreateStockGrp.objects.filter(comp=t_id)
+        else:
+            return redirect('/')
+    std=CreateStockGrp.objects.get(id=pk)
+    und=CreateStockGrp.objects.all()
+    if request.method =='POST':
+         std.name=request.POST['name']
+         std.alias=request.POST['alias']
+         std.under_name=request.POST['under_name']
+         std.quantities=request.POST['quantities']
+         std.save()   
+         return redirect('stock_group_chart_list') 
+    return render(request,'chart_stockgrp_edit.html',{'std':std,'und':und})
+
+
+#....................stock category......................................
+
+
+def stock_category_chart_list(request):
+    data=stockcatagorycreation.objects.all()
+    return render(request,'chart_stock_category_list.html',{'data':data})
+
+def chart_stockcatagory(request,pk):
+    std=stockcatagorycreation.objects.get(id=pk)
+    cagy=stockcatagorycreation.objects.all()
+    if request.method =='POST':
+         std.name=request.POST['name']
+         std.alias=request.POST['alias']
+         std.under=request.POST['under_name']
+         std.save()   
+         return redirect('stock_category_chart_list') 
+    return render(request,'chart_stock_cate_edit.html',{'std':std,'cagy':cagy})
 

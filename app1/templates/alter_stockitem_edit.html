@@ -82,7 +82,7 @@
             </div>
         </div>
            
-        <form class="p-2" style="background-color:rgba(0,0,0,.4);" method="post" action="{% url 'stock_items_creation' %}" autocomplete="off">
+        <form class="p-2" style="background-color:rgba(0,0,0,.4);" method="post" action="{% url 'alter_stockitem_edit' std.id %}" autocomplete="off">
             {% csrf_token %}
 
             <div class="p-3">
@@ -108,13 +108,13 @@
                     <div class="row container-fluid  p-2">
                         <div class="col-sm-6 m-0 p-0"><label for="e">Under</label></div>
                         <div class="col-sm-6 m-0 p-0">
-                            <input type="text" name="under" id="under" value="Primary" class="form-control" onclick="showform();">
+                            <input type="text" name="under" id="under" value="{{std.under}}" class="form-control" onclick="showform();">
                         </div>
                     </div>
                     <div class="row container-fluid  p-2">
                         <div class="col-sm-6 m-0 p-0"> <label for="e">Units</label></div>
                         <div class="col-sm-6 m-0 p-0">
-                            <input type="text"  id="units" onblur="showunits()" name="units" class="form-control" onclick="showform1();">
+                            <input type="text"  id="units" onblur="showunits()" name="units" value="{{std.units}}" class="form-control" onclick="showform1();">
                         </div>
                     </div>
                     <div class="row container-fluid p-2">
@@ -136,10 +136,8 @@
                         <div class="row container-fluid p-2">
                             <div class="col-sm-6 m-0 p-0"><label for="e">Maintain in Batches</label></div>
                             <div class="col-sm-6 m-0 p-0">
-                                <select id="bt" class="form-control" name="batches">
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
-                                </select>
+                                <input id="bt" class="form-control" value="{{std.batches}}" name="batches">
+                                    
                             </div>
                         </div>
                         <div class="row container-fluid p-2">
@@ -214,14 +212,14 @@
                 <div class="p-3">
                     <div class="row container-fluid  p-2 m-0">
                         <div class="col-sm-2 m-0 p-0"><label for="">Quantity</label></div>
-                        <div class="col-sm-3 m-0 p-0"><input type="text" class="form-control"  placeholder="" name="quantity"
+                        <div class="col-sm-3 m-0 p-0"><input type="text" class="form-control" value="{{std.quantity}}" placeholder="" name="quantity"
                             id="quantity" onclick=popup()>
                         </div>
                         <div class="col-sm-7 m-0 p-0"></div>
                     </div>
                     <div class="row container-fluid  p-2 m-0">
                         <div class="col-sm-2 m-0 p-0"><label for="">Rate</label></div>
-                        <div class="col-sm-3 m-0 p-0"><input type="text" class="form-control" id="rate" placeholder="" name="rate"
+                        <div class="col-sm-3 m-0 p-0"><input type="text" class="form-control" value="{{std.rate}}" id="rate" placeholder="" name="rate"
                             id="rate" onblur="passrate()">
                         </div>
                         <div class="col-sm-7 m-0 p-0"></div>
@@ -229,13 +227,13 @@
                     <div class="row container-fluid p-2 m-0">
                         <div class="col-sm-2 m-0 p-0"><label for="">Per</label></div>
                         <div class="col-sm-3 m-0 p-0"> 
-                            <input type="text" class="form-control" id="per1" placeholder="" name="per"> </div>
+                            <input type="text" class="form-control" id="per1" value="{{std.per}}" placeholder="" name="per"> </div>
                         <div class="col-sm-7 m-0 p-0"></div>
                     </div>
                     <div class="row container-fluid p-2 m-0">
                         <div class="col-sm-2 m-0 p-0"><label for="">Value</label></div>
                         <div class="col-sm-3 m-0 p-0"> 
-                            <input type="text" class="form-control" id="value"  placeholder="" name="value"> </div>
+                            <input type="text" class="form-control" id="value1" value="{{std.value}}" name="value"> </div>
                         <div class="col-sm-7 m-0 p-0"></div>
                     </div>
                 </div>
@@ -367,15 +365,15 @@
                     
                     <tr>
                       <td> 
-                        <input type="text" id="under2" name="under_name" class="form-control" onclick="showform2();">
+                        <input type="text" id="under2" name="under_name" value="{{std2.name}}" class="form-control" onclick="showform2();">
                         </td>
                       <td id="branch1" class="hide"> <input type="text" class="w-100 form-control"></td>
                       <td id="track1" class="hide"> <input type="text" class="w-100 form-control"></td>
                       <td id="expiry1" class="hide"> <input type="text"  class="w-100 form-control "></td>
-                      <td><input type="text" class="w-100 form-control" id="quantity1" onblur="passquantity()"> </td>
-                      <td> <input type="text" class="w-100 form-control" id="rate1" onblur="passrate()"></td>
-                      <td><input type="text" class="w-100 form-control" id="per" onblur="passper()"> </td>
-                      <td> <input type="text" class="w-100 form-control" id="value1" onblur="passvalue()"></td>
+                      <td><input type="text" class="w-100 form-control" id="quantity1" value="{{std.quantity}}" onblur="passquantity()"> </td>
+                      <td> <input type="text" class="w-100 form-control" id="rate1" value="{{std.rate}}" onblur="passrate()"></td>
+                      <td><input type="text" class="w-100 form-control" id="per" value="{{std.per}}" onblur="passper()"> </td>
+                      <td> <input type="text" class="w-100 form-control" value="{{std.value}}" id="value2" onblur="passvalue()"></td>
                       
                       <td><a href="#"><button onclick="closeForm()" class="btn btn-info">Accept</button></a></td> 
             
@@ -481,12 +479,12 @@
             let quantity_value=document.getElementById('quantity1').value;
             let rate_value=document.getElementById('rate1').value;
             let per_value=document.getElementById('per').value;
-            let total_value=document.getElementById('value1').value;
+            let total_value=document.getElementById('value2').value;
 
             document.getElementById('quantity').value=quantity_value;
             document.getElementById('rate').value=rate_value;
             document.getElementById('per1').value=per_value;
-            document.getElementById('value').value=total_value;
+            document.getElementById('value1').value=total_value;
         }
         function showform(){
             document.getElementById('underForm').style.display= "block";
@@ -581,7 +579,7 @@
         $('#quantity1, #rate1').on('input',function(){
             var quantity = parseFloat($('#quantity1').val()) || 0;
             var rate = parseFloat($('#rate1').val()) || 0;
-            $('#value1').val(quantity * rate);    
+            $('#value2').val(quantity * rate);    
         });
 
         function showgst(){

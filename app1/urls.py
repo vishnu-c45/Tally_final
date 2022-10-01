@@ -678,6 +678,15 @@ urlpatterns = [
                 #.....................stock item.....................................
                 path('alter_stockitem',views. alter_stockitem,name='alter_stockitem'),
                 path('alter_stockitem_edit/<int:pk>',views.alter_stockitem_edit,name='alter_stockitem_edit'),
+                
+   #........................................Chart of accounts...........................................................
+                 #..............stock group........................
+                path('stock_group_chart_list',views.stock_group_chart_list,name='stock_group_chart_list'), 
+                path('chart_stockgroup/<int:pk>',views.chart_stockgroup,name='chart_stockgroup'),   
+                
+                #..............................stock category...............
+                path('stock_category_chart_list',views.stock_category_chart_list,name='stock_category_chart_list'),
+                path('chart_stockcatagory/<int:pk>',views.chart_stockcatagory,name='chart_stockcatagory'),         
                  
                  
                 
