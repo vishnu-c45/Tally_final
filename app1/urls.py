@@ -680,14 +680,31 @@ urlpatterns = [
                 path('alter_stockitem_edit/<int:pk>',views.alter_stockitem_edit,name='alter_stockitem_edit'),
                 
    #........................................Chart of accounts...........................................................
+   
                  #..............stock group........................
                 path('stock_group_chart_list',views.stock_group_chart_list,name='stock_group_chart_list'), 
                 path('chart_stockgroup/<int:pk>',views.chart_stockgroup,name='chart_stockgroup'),   
                 
                 #..............................stock category...............
                 path('stock_category_chart_list',views.stock_category_chart_list,name='stock_category_chart_list'),
-                path('chart_stockcatagory/<int:pk>',views.chart_stockcatagory,name='chart_stockcatagory'),         
-                 
-                 
+                path('chart_stockcatagory/<int:pk>',views.chart_stockcatagory,name='chart_stockcatagory'),
+                
+                #..............................stock item.........................................................
+                path('chart_stockitem',views.chart_stockitem,name='chart_stockitem'),
+                path('chart_stockitem_edit/<int:pk>',views.chart_stockitem_edit,name='chart_stockitem_edit'),        
+                
+                #...............................stock unit........................................................
+                path('chart_stock_unit',views.chart_stock_unit,name='chart_stock_unit'),
+                path('chart_unit/<int:pk>',views.chart_unit,name='chart_unit'),
+                path('chart_unit_2/<int:pk>',views.chart_unit_2,name='chart_unit_2'),
+                
+                #.................................godown....................................
+                path('chart_godown',views.chart_godown,name='chart_godown'),
+                path('chart_godown_edit/<int:pk>',views.chart_godown_edit,name='chart_godown_edit'),
+                
+                #................................Price level.............................
+                path('chart_pricelevel',views.chart_pricelevel,name='chart_pricelevel'),
+                path('chart_pricelevel_edit/<int:pk>',views.chart_pricelevel_edit,name='chart_pricelevel_edit'),
+                
                 
 ]

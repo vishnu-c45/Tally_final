@@ -10451,7 +10451,7 @@ def alter_pricelevel_edit(request,pk):
         return redirect('alter_pricelevel')
     return render(request,'alter_pricelevel_edit.html',{'std':std,'pr':pr})     
 
-
+#........................stock item.......................................
 def alter_stockitem(request):
     data=stock_itemcreation.objects.all()
     return render(request,'alter_stockitem_list.html',{'data':data})  
@@ -10528,3 +10528,99 @@ def chart_stockcatagory(request,pk):
          return redirect('stock_category_chart_list') 
     return render(request,'chart_stock_cate_edit.html',{'std':std,'cagy':cagy})
 
+
+#....................STOCK ITEM................................................
+
+def chart_stockitem(request):
+    data=stock_itemcreation.objects.all()
+    return render(request,'chart_stockitem_list.html',{'data':data})  
+
+
+def chart_stockitem_edit(request,pk):
+    std=stock_itemcreation.objects.get(id=pk)
+    u=unit_simple.objects.all()
+    std2=CreateGodown.objects.get(id=pk)
+    gd=CreateGodown.objects.all()
+    
+    if request.method=='POST':
+        std.name=request.POST['name']
+        std.alias=request.POST['alias']
+        std.batches=request.POST['batches']
+        std.cost_tracking=request.POST['cost_tracking']
+        std.gst_applicable=request.POST['gst_applicable']
+        std.typ_sply=request.POST['typ_sply']
+        std.set_alter=request.POST['set_alter']
+        std.rate_of_duty=request.POST['rate_of_duty']
+        std.quantity=request.POST['quantity']
+        std.rate=request.POST['rate']
+        std.per=request.POST['rate']
+        std.value=request.POST['value'] 
+        std.save()
+        return redirect('chart_stockitem')
+    return render(request,'chart_stockitem_edit.html',{'std':std,'u':u,'gd':gd,'std2':std2}) 
+
+#...........................unit creation..................................................
+
+def chart_stock_unit(request):
+    data=unit_simple.objects.all()
+    data2=unit_compound.objects.all()
+    return render(request,'chart_unit_list.html',{'data':data,'data2':data2})
+
+
+def chart_unit(request,pk):
+    std=unit_simple.objects.get(id=pk)
+    if request.method =='POST':
+         std.type=request.POST['type']
+         std.symbol=request.POST['symb']
+         std.formal_name=request.POST['fname']
+         std.uqc=request.POST['uqc']
+         std.decimal=request.POST['decimal']
+         std.save()
+         return redirect('chart_stock_unit')
+    return render(request,'chart_stockunit_edit.html',{'std':std})    
+
+
+def chart_unit_2(request,pk):
+    std=unit_compound.objects.get(id=pk)
+    c=unit_simple.objects.all()
+    if request.method =='POST':
+         std.typ=request.POST['compound']
+         std.f_unit=request.POST['f_unit']
+         std.conversion=request.POST['conversion']
+         std.s_unit=request.POST['s_unit']
+         std.save()
+         return redirect('chart_stock_unit')
+    return render(request,'chart_stockunit_edit_2.html',{'std':std,'c':c})    
+
+#........................Godown.............................................
+
+def chart_godown(request):
+    data=CreateGodown.objects.all()
+    return render(request,'chart_goddown_list.html',{'data':data})
+
+def chart_godown_edit(request,pk):
+    std=CreateGodown.objects.get(id=pk)
+    data=CreateGodown.objects.all()
+    if request.method=='POST':
+        std.name=request.POST['name']
+        std.alias=request.POST['alias']
+        std.under_name=request.POST['under_name']
+        std.save()
+        return redirect('chart_godown')
+    return render(request,'chart_godown_edit.html',{'std':std,'data':data})
+
+#...................................Price level...............................
+
+def chart_pricelevel(request):
+    data=Price_level.objects.all()
+    return render(request,'chart_pricelevel_list.html',{'data':data})
+        
+        
+def chart_pricelevel_edit(request,pk):
+    std=Price_level.objects.get(id=pk)
+    pr=Price_level.objects.all()
+    if request.method=='POST':
+        std.number=request.POST['number']
+        std.save()
+        return redirect('chart_pricelevel')
+    return render(request,'chart_pricelevel_edit.html',{'std':std,'pr':pr})     
